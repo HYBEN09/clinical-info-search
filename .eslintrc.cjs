@@ -4,6 +4,9 @@ module.exports = {
     node: true,
     es2021: true,
   },
+  settings: {
+    react: { version: 'detect' },
+  },
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
