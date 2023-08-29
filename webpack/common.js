@@ -1,5 +1,5 @@
 const { resolve } = require('node:path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const htmlWebpackPlugin = require('./plugin/html');
 
 const commonConfig = {
   target: ['web', 'browserslist'],
@@ -12,6 +12,7 @@ const commonConfig = {
   entry: {
     main: resolve('./src/index.tsx'),
   },
+  plugins: [htmlWebpackPlugin()].filter(Boolean),
   module: {
     rules: [
       {
@@ -33,12 +34,6 @@ const commonConfig = {
       },
     ],
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './public/index.html',
-      filename: 'index.html',
-    }),
-  ],
 };
 
 module.exports = commonConfig;
