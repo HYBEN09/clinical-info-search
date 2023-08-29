@@ -4,7 +4,14 @@ module.exports = {
     node: true,
     es2021: true,
   },
-  extends: ['eslint:recommended', 'plugin:react/recommended', 'plugin:prettier/recommended'],
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:prettier/recommended',
+    'plugin:react/jsx-runtime',
+    'plugin:jsx-a11y/recommended',
+    'prettier',
+  ],
   overrides: [
     {
       files: ['.eslintrc.{js,cjs}'],
@@ -17,7 +24,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['react', '@typescript-eslint', 'prettier'],
+  plugins: ['react', '@typescript-eslint', 'prettier', 'jsx-a11y'],
   rules: {
     'no-var': 'error', // var 금지
     'no-multiple-empty-lines': 'warn', // 여러 줄 공백 금지
