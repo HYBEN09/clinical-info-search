@@ -1,6 +1,6 @@
 import { FaSearch } from 'react-icons/fa';
 
-const Button = () => {
+const SearchButton = () => {
   return (
     <StyledButton>
       <StyledSearchIcon />
@@ -8,7 +8,7 @@ const Button = () => {
   );
 };
 
-export default Button;
+export default SearchButton;
 
 import styled from 'styled-components';
 

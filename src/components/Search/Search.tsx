@@ -1,13 +1,16 @@
 import { styled } from 'styled-components';
-import Button from './UI/Button';
-import Input from './UI/Input';
+import SearchButton from '../UI/SearchButton';
+import SearchInput from '../UI/SearchInput';
+import { useState } from 'react';
 
 export const Search = () => {
+  const [isFocus, setIsFocus] = useState(false);
+
   return (
     <SearchWrapper>
-      <SearchContainer>
-        <Input />
-        <Button />
+      <SearchContainer $isFocus={isFocus}>
+        <SearchInput setIsFocus={setIsFocus} />
+        <SearchButton />
       </SearchContainer>
     </SearchWrapper>
   );
@@ -20,10 +23,9 @@ const SearchWrapper = styled.form`
   margin: 0 auto;
 `;
 
-const SearchContainer = styled.div`
+const SearchContainer = styled.div<{ $isFocus: boolean }>`
   border-radius: 42px;
   border: 2px solid;
-  border-color: #ffffff;
   background-color: #ffffff;
   align-items: center;
   font-size: 1rem;
@@ -35,4 +37,6 @@ const SearchContainer = styled.div`
   position: relative;
   padding-right: 8px;
   height: 70px;
+
+  border: ${props => (props.$isFocus ? '2px solid #0072c6' : '2px solid #ffffff')};
 `;

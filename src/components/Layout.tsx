@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
-import { Search } from './Search';
+import { Search } from './Search/Search';
 
-const Home = () => {
+const Layout = () => {
   return (
     <HomeWrapper>
       <HomeContainer>
@@ -25,7 +25,7 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Layout;
 
 const HomeWrapper = styled.main`
   flex-direction: column;
