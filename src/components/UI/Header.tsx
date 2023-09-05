@@ -1,13 +1,9 @@
 import { A11yHidden } from '@/constants/styled';
-import { useNavigate } from 'react-router-dom';
+import { useNavigation } from '@/hooks/useNavigation';
 import { styled } from 'styled-components';
 
 export const Header = () => {
-  const navigate = useNavigate();
-
-  const navigateHome = () => {
-    navigate('/');
-  };
+  const { navigateHome } = useNavigation();
 
   return (
     <HeaderWrapper>
