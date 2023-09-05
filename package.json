@@ -1,8 +1,7 @@
 {
-  "name": "pre-onboarding-12th-17",
+  "name": "clinical-information-search-bar",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "한국임상정보 검색창 구현 + 검색어 추천 기능 구현 + 캐싱 기능 구현",
   "scripts": {
     "start": "npm run dev -- --open",
     "dev": "webpack serve --config ./webpack/config.js --env env=dev",
@@ -17,7 +16,6 @@
     "axios": "^1.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hot-toast": "^2.4.1",
     "react-router-dom": "^6.15.0"
   },
   "devDependencies": {
@@ -34,8 +32,8 @@
     "css-loader": "^6.8.1",
     "eslint": "^8.48.0",
     "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-jsx-a11y": "6.7.1",
+    "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-react": "^7.33.2",
     "html-webpack-plugin": "^5.5.3",
     "husky": "^8.0.3",

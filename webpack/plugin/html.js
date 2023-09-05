@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const htmlWebpackPlugin = (options = {}) => {
   const config = Object.assign(
     {
-      title: 'pre-onboarding-12th-17',
+      title: '한국임상정보',
       template: resolve('public/index.html'),
       templateParameters: {
         lang: 'ko-KR',
