@@ -1,3 +1,4 @@
+import styled from 'styled-components';
 import { FaSearch } from 'react-icons/fa';
 
 const SearchButton = () => {
@@ -10,11 +11,10 @@ const SearchButton = () => {
 
 export default SearchButton;
 
-import styled from 'styled-components';
-
+//style
 const StyledButton = styled.button`
-  width: 48px;
-  height: 48px;
+  width: 55px;
+  height: 50px;
   border: none;
   border-radius: 50%;
   background-color: #007be9;

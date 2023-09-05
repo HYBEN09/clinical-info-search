@@ -1,23 +1,35 @@
-import { FocusEvent, useRef } from 'react';
+import { FocusEvent, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 interface SearchInputProps {
   setIsFocus: (value: boolean) => void;
+  onSearch: (searchTerm: string) => void;
 }
 
-const SearchInput = ({ setIsFocus }: SearchInputProps) => {
+const SearchInput = ({ setIsFocus, onSearch }: SearchInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleFocus = (event: FocusEvent<HTMLInputElement>) => {
     if (event.isTrusted) {
       setIsFocus(true);
     }
-    event.isTrusted && setIsFocus(true);
   };
 
   const handleBlur = (event: FocusEvent<HTMLInputElement>) => {
     if (event.isTrusted) {
       setIsFocus(false);
+    }
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      onSearch(searchTerm);
+      setSearchTerm(''); // Clear the input field
     }
   };
 
@@ -28,6 +40,9 @@ const SearchInput = ({ setIsFocus }: SearchInputProps) => {
       aria-label="질환 검색창"
       onFocus={handleFocus}
       onBlur={handleBlur}
+      onChange={handleInputChange}
+      onKeyPress={handleKeyPress}
+      value={searchTerm}
     />
   );
 };

@@ -1,17 +1,39 @@
 import { styled } from 'styled-components';
 import SearchButton from '../UI/SearchButton';
 import SearchInput from '../UI/SearchInput';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { SearchResult } from './SearchResult';
 
 export const Search = () => {
   const [isFocus, setIsFocus] = useState(false);
+  const [recentSearches, setRecentSearches] = useState<string[]>([]);
+
+  useEffect(() => {
+    const storedSearches = localStorage.getItem('recentSearches');
+    if (storedSearches) {
+      setRecentSearches(JSON.parse(storedSearches));
+    }
+  }, []);
+
+  const handleSearch = (searchTerm: string) => {
+    const updatedSearches = [...recentSearches, searchTerm];
+    setRecentSearches(updatedSearches);
+    localStorage.setItem('recentSearches', JSON.stringify(updatedSearches));
+
+    setIsFocus(false);
+  };
 
   return (
     <SearchWrapper>
       <SearchContainer $isFocus={isFocus}>
-        <SearchInput setIsFocus={setIsFocus} />
+        <SearchInput setIsFocus={setIsFocus} onSearch={handleSearch} />
         <SearchButton />
       </SearchContainer>
+      {isFocus && (
+        <AbsoluteWrapper>
+          <SearchResult recentSearches={recentSearches} />
+        </AbsoluteWrapper>
+      )}
     </SearchWrapper>
   );
 };
@@ -39,4 +61,10 @@ const SearchContainer = styled.div<{ $isFocus: boolean }>`
   height: 70px;
 
   border: ${props => (props.$isFocus ? '2px solid #0072c6' : '2px solid #ffffff')};
+`;
+
+const AbsoluteWrapper = styled.div`
+  position: absolute;
+  top: 67%;
+  width: 100%;
 `;
