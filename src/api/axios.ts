@@ -1,20 +1,38 @@
+import { ApiResponse } from '@/@type/ApiResponse';
 import axios from 'axios';
 
-const apiCache: Record<string, any> = {};
+interface CachedData {
+  data: ApiResponse;
+  expireTime: number;
+}
+// 캐시 객체
+const apiCache: Record<string, CachedData> = {};
+
+const isCacheExpired = (expireTime: number) => {
+  const currentTime = Date.now();
+  return currentTime > expireTime;
+};
 
 export const searchSickness = async (query: string) => {
   const cacheKey = `searchSickness_${query}`;
 
   // 캐시된 결과가 있으면 바로 반환
-  if (apiCache[cacheKey]) {
-    return apiCache[cacheKey];
+  if (apiCache[cacheKey] && !isCacheExpired(apiCache[cacheKey].expireTime)) {
+    console.log('Using cached data for query:', query); // 추가된 로그
+    return apiCache[cacheKey].data;
   }
 
   try {
     const response = await axios.get(`?q=${query}`);
     const responseData = response.data;
 
-    console.info('calling api');
+    console.info('Calling API for query:', query); // 수정된 로그
+
+    // 데이터를 캐시하고 expire time 설정 (예: 5분 후 만료)
+    apiCache[cacheKey] = {
+      data: responseData,
+      expireTime: Date.now() + 5 * 60 * 1000,
+    };
 
     return responseData;
   } catch (error) {
