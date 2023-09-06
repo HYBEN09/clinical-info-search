@@ -36,15 +36,15 @@ export const Search = () => {
         />
         <SearchButton />
       </SearchContainer>
-      {isFocus && (
-        <AbsoluteWrapper>
-          <SearchResult
-            recentSearches={recentSearches}
-            searchTerm={searchTerm} // 디바운스된 검색어 사용
-            recommendedSearches={recommendedSearches}
-          />
-        </AbsoluteWrapper>
-      )}
+      {/* {isFocus && ( */}
+      <AbsoluteWrapper>
+        <SearchResult
+          recentSearches={recentSearches}
+          searchTerm={searchTerm} // 디바운스된 검색어 사용
+          recommendedSearches={recommendedSearches}
+        />
+      </AbsoluteWrapper>
+      {/* )} */}
     </SearchWrapper>
   );
 };

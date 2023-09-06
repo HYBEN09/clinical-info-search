@@ -7,15 +7,18 @@ import {
   StyledResultIcon,
 } from '@/constants/styled';
 import { SearchHistory } from './SearchHistory';
+import { FC } from 'react';
 
-export const SearchResult = ({
-  recentSearches,
-  searchTerm,
-  recommendedSearches,
-}: {
+interface SearchResultProps {
   recentSearches: string[];
   searchTerm: string;
   recommendedSearches: { sickCd: string; sickNm: string }[];
+}
+
+export const SearchResult: FC<SearchResultProps> = ({
+  recentSearches,
+  searchTerm,
+  recommendedSearches,
 }) => {
   const isSearchTermNotEmpty = searchTerm.trim() !== '';
   const hasRecommendedSearches = recommendedSearches.length > 0;
