@@ -14,7 +14,7 @@ const SearchButton: FC<SearchButtonProps> = ({ onSearch, searchTerm }) => {
   };
 
   return (
-    <StyledButton onClick={handleClick}>
+    <StyledButton onClick={handleClick} tabIndex={0}>
       <StyledSearchIcon />
     </StyledButton>
   );
@@ -33,6 +33,12 @@ const StyledButton = styled.button`
   justify-content: center;
   align-items: center;
   color: #ffffff;
+
+  &:focus {
+    outline: none;
+    border: 2px solid #0259a4;
+    box-shadow: 0 0 2px #0072c6;
+  }
 `;
 
 const StyledSearchIcon = styled(FaSearch)`
