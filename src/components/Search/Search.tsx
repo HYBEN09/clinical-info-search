@@ -4,11 +4,25 @@ import SearchInput from '../UI/SearchInput';
 import SearchButton from '../UI/SearchButton';
 import { SearchResult } from './SearchResult';
 import { useRecentSearches } from '@/hooks/useRecentSearches';
+import { searchSickness } from '@/api/api';
 
 export const Search = () => {
   const [isFocus, setIsFocus] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const { recentSearches, addRecentSearch } = useRecentSearches();
+
+  // 함수를 호출하고 반환된 데이터를 사용
+  const fetchData = async () => {
+    try {
+      const query = searchTerm;
+      const responseData = await searchSickness(query);
+      console.log('API 응답 데이터:', responseData);
+    } catch (error) {
+      console.error('데이터 가져오기 오류:', error);
+    }
+  };
+
+  fetchData();
 
   // 검색 버튼 클릭 시 호출되는 함수
   const handleSearch = (searchTerm: string) => {
