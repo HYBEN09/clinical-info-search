@@ -20,7 +20,7 @@ export const Search = () => {
 
   // 입력창의 값이 변경될 때 호출되는 함수
   const handleInputChange = (value: string) => {
-    setSearchTerm(value); // 입력된 검색어를 상태 변수에 업데이트
+    setSearchTerm(value);
   };
 
   return (
@@ -33,7 +33,6 @@ export const Search = () => {
         />
         <SearchButton />
       </SearchContainer>
-      {/* 포커스 상태일 때만 검색 결과 컴포넌트를 보여줌 */}
       {isFocus && (
         <AbsoluteWrapper>
           <SearchResult
