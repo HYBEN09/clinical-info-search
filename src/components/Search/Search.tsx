@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { styled } from 'styled-components';
 import SearchInput from '../UI/SearchInput';
 import SearchButton from '../UI/SearchButton';
 import { SearchResult } from './SearchResult';
 import { useRecentSearches } from '@/hooks/useRecentSearches';
-import { searchSickness } from '@/api/axios';
 import { useSearchRecommendations } from '@/hooks/useSearchRecommendations';
 
 export const Search = () => {
@@ -12,16 +11,6 @@ export const Search = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const { recentSearches, addRecentSearch } = useRecentSearches();
   const recommendedSearches = useSearchRecommendations(searchTerm);
-
-  // 함수를 호출하고 반환된 데이터를 사용
-  const fetchData = async () => {
-    try {
-      const responseData = await searchSickness(searchTerm);
-      console.log('API 응답 데이터:', responseData);
-    } catch (error) {
-      console.error('데이터 가져오기 오류:', error);
-    }
-  };
 
   // 검색 버튼 클릭 시 호출되는 함수
   const handleSearch = (searchTerm: string) => {
