@@ -1,13 +1,9 @@
+import { ApiResponse } from '@/@type/ApiResponse';
 import { axiosBase } from '@/api/axiosBase';
 import { useEffect, useState } from 'react';
 
-interface RecommendedSearch {
-  sickCd: string;
-  sickNm: string;
-}
-
 export const useSearchRecommendations = (searchTerm: string) => {
-  const [recommendedSearches, setRecommendedSearches] = useState<RecommendedSearch[]>([]);
+  const [recommendedSearches, setRecommendedSearches] = useState<ApiResponse[]>([]);
 
   useEffect(() => {
     if (searchTerm.trim() !== '') {
