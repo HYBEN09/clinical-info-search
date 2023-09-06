@@ -1,37 +1,40 @@
+import { useState } from 'react';
 import { styled } from 'styled-components';
-import SearchButton from '../UI/SearchButton';
 import SearchInput from '../UI/SearchInput';
-import { useEffect, useState } from 'react';
+import SearchButton from '../UI/SearchButton';
 import { SearchResult } from './SearchResult';
+import { useRecentSearches } from '@/hooks/useRecentSearches';
 
 export const Search = () => {
   const [isFocus, setIsFocus] = useState(false);
-  const [recentSearches, setRecentSearches] = useState<string[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const { recentSearches, addRecentSearch } = useRecentSearches();
 
-  useEffect(() => {
-    const storedSearches = localStorage.getItem('recentSearches');
-    if (storedSearches) {
-      setRecentSearches(JSON.parse(storedSearches));
-    }
-  }, []);
-
+  // 검색 버튼 클릭 시 호출되는 함수
   const handleSearch = (searchTerm: string) => {
-    const updatedSearches = [...recentSearches, searchTerm];
-    setRecentSearches(updatedSearches);
-    localStorage.setItem('recentSearches', JSON.stringify(updatedSearches));
+    addRecentSearch(searchTerm); // 검색어를 최근 검색어 목록에 추가
+    setIsFocus(false); // 포커스 상태를 false로 변경하여 검색결과를 숨김
+  };
 
-    setIsFocus(false);
+  // 입력창의 값이 변경될 때 호출되는 함수
+  const handleInputChange = (value: string) => {
+    setSearchTerm(value); // 입력된 검색어를 상태 변수에 업데이트
   };
 
   return (
     <SearchWrapper>
       <SearchContainer $isFocus={isFocus}>
-        <SearchInput setIsFocus={setIsFocus} onSearch={handleSearch} />
+        <SearchInput
+          setIsFocus={setIsFocus}
+          onSearch={handleSearch}
+          onInputChange={handleInputChange}
+        />
         <SearchButton />
       </SearchContainer>
+      {/* 포커스 상태일 때만 검색 결과 컴포넌트를 보여줌 */}
       {isFocus && (
         <AbsoluteWrapper>
-          <SearchResult recentSearches={recentSearches} />
+          <SearchResult recentSearches={recentSearches} searchTerm={searchTerm} />
         </AbsoluteWrapper>
       )}
     </SearchWrapper>

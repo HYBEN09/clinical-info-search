@@ -1,17 +1,35 @@
 import { styled } from 'styled-components';
 import { FaSearch } from 'react-icons/fa';
 
-export const SearchResult = ({ recentSearches }: { recentSearches: string[] }) => {
+export const SearchResult = ({
+  recentSearches,
+  searchTerm,
+}: {
+  recentSearches: string[];
+  searchTerm: string;
+}) => {
   return (
     <SearchResultWrapper>
       <p>최근 검색어</p>
       <ul>
-        {recentSearches.map((searchTerm, index) => (
+        {searchTerm.trim() !== '' ? ( // 입력 중인 검색어가 비어 있지 않은 경우
           <ResultContainer>
             <StyledResultIcon />
-            <li key={index}>{searchTerm}</li>
+            <li>{searchTerm}</li> {/* 입력 중인 검색어를 표시 */}
           </ResultContainer>
-        ))}
+        ) : (
+          recentSearches.map(
+            (
+              searchTerm,
+              index, // 입력 중인 검색어가 없는 경우, 최근 검색어 목록 표시
+            ) => (
+              <ResultContainer key={index}>
+                <StyledResultIcon />
+                <li>{searchTerm}</li> {/* 최근 검색어 목록을 표시 */}
+              </ResultContainer>
+            ),
+          )
+        )}
       </ul>
     </SearchResultWrapper>
   );
