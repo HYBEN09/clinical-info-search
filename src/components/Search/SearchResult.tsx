@@ -11,6 +11,7 @@ export const SearchResult = ({
   recommendedSearches: { sickCd: string; sickNm: string }[];
 }) => {
   const isSearchTermNotEmpty = searchTerm.trim() !== '';
+  const hasRecommendedSearches = recommendedSearches.length > 0;
 
   return (
     <SearchResultWrapper>
@@ -34,12 +35,17 @@ export const SearchResult = ({
             <ResultDataList>{searchTerm}</ResultDataList>
           </ResultDataContainer>
         )}
-        {recommendedSearches.map((recommendedTerm, index) => (
-          <ResultContainer key={index}>
-            <StyledResultIcon />
-            <ResultDataList>{recommendedTerm.sickNm}</ResultDataList>
-          </ResultContainer>
-        ))}
+
+        {hasRecommendedSearches ? (
+          recommendedSearches.map((recommendedTerm, index) => (
+            <ResultContainer key={index}>
+              <StyledResultIcon />
+              <ResultDataList>{recommendedTerm.sickNm}</ResultDataList>
+            </ResultContainer>
+          ))
+        ) : (
+          <NoSearchData>검색 결과가 없습니다</NoSearchData>
+        )}
       </ul>
     </SearchResultWrapper>
   );
@@ -97,4 +103,11 @@ const ResultDataList = styled.div`
 const StyledResultIcon = styled(FaSearch)`
   margin-left: 7px;
   margin-right: 12px;
+`;
+
+const NoSearchData = styled.p`
+  margin-left: 7px;
+  margin-right: 12px;
+  margin-top: 12px;
+  color: #a7afb7;
 `;

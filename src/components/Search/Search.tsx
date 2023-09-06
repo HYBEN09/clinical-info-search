@@ -50,15 +50,15 @@ export const Search = () => {
         <SearchButton />
       </SearchContainer>
       {/* 포커스 상태일 때만 검색 결과 컴포넌트를 보여줌 */}
-      {/* {isFocus && ( */}
-      <AbsoluteWrapper>
-        <SearchResult
-          recentSearches={recentSearches}
-          searchTerm={searchTerm}
-          recommendedSearches={recommendedSearches}
-        />
-      </AbsoluteWrapper>
-      {/* )} */}
+      {isFocus && (
+        <AbsoluteWrapper>
+          <SearchResult
+            recentSearches={recentSearches}
+            searchTerm={searchTerm}
+            recommendedSearches={recommendedSearches}
+          />
+        </AbsoluteWrapper>
+      )}
     </SearchWrapper>
   );
 };
