@@ -1,6 +1,5 @@
-import axios from 'axios';
+import { axiosBase } from '@/api/axios';
 import { useEffect, useState } from 'react';
-import { ENDPOINT_URL } from '@/api/api';
 
 export const useSearchRecommendations = (searchTerm: string) => {
   const [recommendedSearches, setRecommendedSearches] = useState<
@@ -10,8 +9,8 @@ export const useSearchRecommendations = (searchTerm: string) => {
   useEffect(() => {
     if (searchTerm.trim() !== '') {
       // API 호출하여 추천 검색어 가져오기
-      axios
-        .get(`${ENDPOINT_URL}?q=${searchTerm}`)
+      axiosBase
+        .get(`?q=${searchTerm}`) // axiosBase를 사용하여 baseURL과 함께 요청 보냄
         .then(response => {
           const recommendedTerms = response.data
             .map((item: any) => ({

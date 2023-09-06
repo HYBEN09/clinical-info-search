@@ -4,7 +4,7 @@ import SearchInput from '../UI/SearchInput';
 import SearchButton from '../UI/SearchButton';
 import { SearchResult } from './SearchResult';
 import { useRecentSearches } from '@/hooks/useRecentSearches';
-import { searchSickness } from '@/api/api';
+import { searchSickness } from '@/api/axios';
 import { useSearchRecommendations } from '@/hooks/useSearchRecommendations';
 
 export const Search = () => {
