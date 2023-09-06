@@ -34,13 +34,13 @@ export const Search = () => {
           onSearch={handleSearch}
           onInputChange={handleInputChange}
         />
-        <SearchButton />
+        <SearchButton onSearch={handleSearch} searchTerm={searchTerm} />
       </SearchContainer>
       {/* {isFocus && ( */}
       <AbsoluteWrapper>
         <SearchResult
           recentSearches={recentSearches}
-          searchTerm={searchTerm} // 디바운스된 검색어 사용
+          searchTerm={searchTerm}
           recommendedSearches={recommendedSearches}
         />
       </AbsoluteWrapper>

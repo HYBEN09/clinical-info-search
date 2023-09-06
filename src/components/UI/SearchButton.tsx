@@ -1,9 +1,20 @@
-import styled from 'styled-components';
+import { FC, MouseEvent } from 'react';
 import { FaSearch } from 'react-icons/fa';
+import { styled } from 'styled-components';
 
-const SearchButton = () => {
+interface SearchButtonProps {
+  onSearch: (searchTerm: string) => void;
+  searchTerm: string;
+}
+
+const SearchButton: FC<SearchButtonProps> = ({ onSearch, searchTerm }) => {
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    onSearch(searchTerm);
+  };
+
   return (
-    <StyledButton>
+    <StyledButton onClick={handleClick}>
       <StyledSearchIcon />
     </StyledButton>
   );
