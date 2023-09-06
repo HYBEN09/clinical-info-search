@@ -4,32 +4,42 @@ import { FaSearch } from 'react-icons/fa';
 export const SearchResult = ({
   recentSearches,
   searchTerm,
+  recommendedSearches,
 }: {
   recentSearches: string[];
   searchTerm: string;
+  recommendedSearches: { sickCd: string; sickNm: string }[];
 }) => {
+  const isSearchTermNotEmpty = searchTerm.trim() !== '';
+
   return (
     <SearchResultWrapper>
-      <p>최근 검색어</p>
-      <ul>
-        {searchTerm.trim() !== '' ? ( // 입력 중인 검색어가 비어 있지 않은 경우
-          <ResultContainer>
-            <StyledResultIcon />
-            <li>{searchTerm}</li> {/* 입력 중인 검색어를 표시 */}
-          </ResultContainer>
-        ) : (
-          recentSearches.map(
-            (
-              searchTerm,
-              index, // 입력 중인 검색어가 없는 경우, 최근 검색어 목록 표시
-            ) => (
+      {!isSearchTermNotEmpty && (
+        <>
+          <p>최근 검색어</p>
+          <ul>
+            {recentSearches.map((recentSearch, index) => (
               <ResultContainer key={index}>
                 <StyledResultIcon />
-                <li>{searchTerm}</li> {/* 최근 검색어 목록을 표시 */}
+                <ResultDataList>{recentSearch}</ResultDataList>
               </ResultContainer>
-            ),
-          )
+            ))}
+          </ul>
+        </>
+      )}
+      <ul>
+        {searchTerm.trim() !== '' && (
+          <ResultDataContainer>
+            <StyledResultIcon />
+            <ResultDataList>{searchTerm}</ResultDataList>
+          </ResultDataContainer>
         )}
+        {recommendedSearches.map((recommendedTerm, index) => (
+          <ResultContainer key={index}>
+            <StyledResultIcon />
+            <ResultDataList>{recommendedTerm.sickNm}</ResultDataList>
+          </ResultContainer>
+        ))}
       </ul>
     </SearchResultWrapper>
   );
@@ -37,21 +47,31 @@ export const SearchResult = ({
 
 const SearchResultWrapper = styled.div`
   width: 490px;
-  height: 300px;
+  height: 420px;
   background-color: #fff;
-  padding: 28px;
+  padding: 14px;
   border-radius: 2rem;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 
   & > p {
     font-size: 14px;
+    padding: 10px;
     color: #939191;
   }
 
   & > ul {
-    padding: 20px 10px;
+    padding: 10px;
     cursor: pointer;
   }
+`;
+
+const ResultDataContainer = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 6px 0;
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+  border-bottom: 1px solid #dfd7d7;
 `;
 
 const ResultContainer = styled.div`
@@ -61,13 +81,13 @@ const ResultContainer = styled.div`
   background-color: transparent;
   border-radius: 6px;
   transition: background-color 0.3s ease;
+`;
 
-  & > li {
-    margin-top: 2px;
-    padding: 8px 2px;
-    width: 100%;
-    font-weight: 400;
-  }
+const ResultDataList = styled.div`
+  margin-top: 2px;
+  padding: 8px 2px;
+  width: 100%;
+  font-weight: 400;
 
   &:hover {
     background-color: #eef1f1;

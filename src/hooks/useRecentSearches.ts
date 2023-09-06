@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 // 최근 검색어와 관련된 상태와 기능을 관리하는 커스텀 훅
+
 export const useRecentSearches = () => {
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
 

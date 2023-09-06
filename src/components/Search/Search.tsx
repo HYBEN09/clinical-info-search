@@ -1,15 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import SearchInput from '../UI/SearchInput';
 import SearchButton from '../UI/SearchButton';
 import { SearchResult } from './SearchResult';
 import { useRecentSearches } from '@/hooks/useRecentSearches';
 import { searchSickness } from '@/api/api';
+import { useSearchRecommendations } from '@/hooks/useSearchRecommendations';
 
 export const Search = () => {
   const [isFocus, setIsFocus] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const { recentSearches, addRecentSearch } = useRecentSearches();
+  const recommendedSearches = useSearchRecommendations(searchTerm);
 
   // 함수를 호출하고 반환된 데이터를 사용
   const fetchData = async () => {
@@ -22,7 +24,9 @@ export const Search = () => {
     }
   };
 
-  fetchData();
+  useEffect(() => {
+    fetchData();
+  }, [searchTerm]);
 
   // 검색 버튼 클릭 시 호출되는 함수
   const handleSearch = (searchTerm: string) => {
@@ -46,11 +50,15 @@ export const Search = () => {
         <SearchButton />
       </SearchContainer>
       {/* 포커스 상태일 때만 검색 결과 컴포넌트를 보여줌 */}
-      {isFocus && (
-        <AbsoluteWrapper>
-          <SearchResult recentSearches={recentSearches} searchTerm={searchTerm} />
-        </AbsoluteWrapper>
-      )}
+      {/* {isFocus && ( */}
+      <AbsoluteWrapper>
+        <SearchResult
+          recentSearches={recentSearches}
+          searchTerm={searchTerm}
+          recommendedSearches={recommendedSearches}
+        />
+      </AbsoluteWrapper>
+      {/* )} */}
     </SearchWrapper>
   );
 };
