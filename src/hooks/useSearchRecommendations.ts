@@ -1,16 +1,19 @@
-import { axiosBase } from '@/api/axios';
+import { axiosBase } from '@/api/axiosBase';
 import { useEffect, useState } from 'react';
 
+interface RecommendedSearch {
+  sickCd: string;
+  sickNm: string;
+}
+
 export const useSearchRecommendations = (searchTerm: string) => {
-  const [recommendedSearches, setRecommendedSearches] = useState<
-    { sickCd: string; sickNm: string }[]
-  >([]);
+  const [recommendedSearches, setRecommendedSearches] = useState<RecommendedSearch[]>([]);
 
   useEffect(() => {
     if (searchTerm.trim() !== '') {
       // API 호출하여 추천 검색어 가져오기
       axiosBase
-        .get(`?q=${searchTerm}`) // axiosBase를 사용하여 baseURL과 함께 요청 보냄
+        .get(`?q=${searchTerm}`)
         .then(response => {
           const recommendedTerms = response.data
             .map((item: any) => ({
