@@ -1,23 +1,20 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 
-interface SicknessData {
-  sickCd: string;
-  sickNm: string;
-}
+const apiCache: Record<string, any> = {};
 
-export const axiosBase = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+export const searchSickness = async (query: string) => {
+  const cacheKey = `searchSickness_${query}`;
 
-export const searchSickness = async (query: string): Promise<SicknessData> => {
+  // 캐시된 결과가 있으면 바로 반환
+  if (apiCache[cacheKey]) {
+    return apiCache[cacheKey];
+  }
+
   try {
-    const response: AxiosResponse<SicknessData> = await axiosBase.get(`?q=${query}`);
-    const responseData: SicknessData = response.data;
+    const response = await axios.get(`?q=${query}`);
+    const responseData = response.data;
 
-    console.log('API 응답 데이터:', responseData);
+    console.info('calling api');
 
     return responseData;
   } catch (error) {
