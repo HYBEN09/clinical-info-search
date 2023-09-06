@@ -1,27 +1,30 @@
 import { useState } from 'react';
 import { styled } from 'styled-components';
 import SearchInput from '../UI/SearchInput';
+import { searchSickness } from '@/api/axios';
 import SearchButton from '../UI/SearchButton';
 import { SearchResult } from './SearchResult';
 import { useRecentSearches } from '@/hooks/useRecentSearches';
+import { useDebouncedSearch } from '@/hooks/useDebounceSearch';
 import { useSearchRecommendations } from '@/hooks/useSearchRecommendations';
 
 export const Search = () => {
   const [isFocus, setIsFocus] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
   const { recentSearches, addRecentSearch } = useRecentSearches();
-  const recommendedSearches = useSearchRecommendations(searchTerm);
 
   // 검색 버튼 클릭 시 호출되는 함수
   const handleSearch = (searchTerm: string) => {
-    addRecentSearch(searchTerm); // 검색어를 최근 검색어 목록에 추가
-    setIsFocus(false); // 포커스 상태를 false로 변경하여 검색결과를 숨김
+    addRecentSearch(searchTerm);
+    setIsFocus(false);
   };
 
   // 입력창의 값이 변경될 때 호출되는 함수
   const handleInputChange = (value: string) => {
     setSearchTerm(value);
   };
+
+  const { searchTerm, setSearchTerm } = useDebouncedSearch(searchSickness, 400);
+  const recommendedSearches = useSearchRecommendations(searchTerm);
 
   return (
     <SearchWrapper>
@@ -37,7 +40,7 @@ export const Search = () => {
         <AbsoluteWrapper>
           <SearchResult
             recentSearches={recentSearches}
-            searchTerm={searchTerm}
+            searchTerm={searchTerm} // 디바운스된 검색어 사용
             recommendedSearches={recommendedSearches}
           />
         </AbsoluteWrapper>

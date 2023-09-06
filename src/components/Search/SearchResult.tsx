@@ -1,6 +1,3 @@
-import { styled } from 'styled-components';
-import { FaSearch } from 'react-icons/fa';
-import { SearchHistory } from './SearchHistory';
 import {
   NoSearchData,
   ResultContainer,
@@ -9,6 +6,7 @@ import {
   SearchResultWrapper,
   StyledResultIcon,
 } from '@/constants/styled';
+import { SearchHistory } from './SearchHistory';
 
 export const SearchResult = ({
   recentSearches,
