@@ -1,6 +1,7 @@
 const { resolve } = require('node:path');
 const htmlWebpackPlugin = require('./plugin/html');
 const copyWebpackPlugin = require('./plugin/copy');
+const dotEnvWebpackPlugin = require('./plugin/dotEnv');
 
 const commonConfig = {
   target: ['web', 'browserslist'],
@@ -13,7 +14,7 @@ const commonConfig = {
   entry: {
     main: resolve('./src/index.tsx'),
   },
-  plugins: [htmlWebpackPlugin(), copyWebpackPlugin()].filter(Boolean),
+  plugins: [dotEnvWebpackPlugin(), htmlWebpackPlugin(), copyWebpackPlugin()].filter(Boolean),
   module: {
     rules: [
       {
