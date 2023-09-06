@@ -10,6 +10,11 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
   }
 
+  body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f8f8;
+  }
+
  a {
   color: inherit;
   text-decoration: none;
