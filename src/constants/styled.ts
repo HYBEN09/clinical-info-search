@@ -45,11 +45,19 @@ export const ResultContainer = styled.div`
   margin-top: 4px;
   background-color: transparent;
   border-radius: 6px;
-  transition: background-color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
   cursor: pointer;
+
+  &.focused {
+    background-color: #eef1f1;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  }
 
   &:hover {
     background-color: #eef1f1;
+    /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px; */
   }
 `;
 

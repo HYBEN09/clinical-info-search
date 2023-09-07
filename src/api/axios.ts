@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { ApiResponse } from '@/@type/ApiResponse';
+import { ApiResponse } from '@/constants/ApiResponse';
 import { getCache, setCache } from '@/utils/cache';
 import { axiosBase } from './axiosBase';
 

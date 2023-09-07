@@ -1,4 +1,4 @@
-import { ApiResponse } from '@/@type/ApiResponse';
+import { ApiResponse } from '@/constants/ApiResponse';
 import { axiosBase } from '@/api/axiosBase';
 import { useEffect, useState } from 'react';
 
