@@ -56,15 +56,15 @@ export const Search = () => {
         />
         <SearchButton onSearch={handleSearch} searchTerm={searchTerm} />
       </SearchContainer>
-      {/* {isFocus && ( */}
-      <AbsoluteWrapper>
-        <SearchResult
-          recentSearches={recentSearches}
-          searchTerm={searchTerm}
-          recommendedSearches={recommendedSearches}
-        />
-      </AbsoluteWrapper>
-      {/* )} */}
+      {isFocus && (
+        <AbsoluteWrapper>
+          <SearchResult
+            recentSearches={recentSearches}
+            searchTerm={searchTerm}
+            recommendedSearches={recommendedSearches}
+          />
+        </AbsoluteWrapper>
+      )}
     </SearchWrapper>
   );
 };
