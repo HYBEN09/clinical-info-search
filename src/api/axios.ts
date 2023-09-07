@@ -1,41 +1,30 @@
-import { ApiResponse } from '@/@type/ApiResponse';
 import axios from 'axios';
+import { ApiResponse } from '@/@type/ApiResponse';
+import { getCache, setCache } from '@/utils/cache';
+import { axiosBase } from './axiosBase';
 
-interface CachedData {
-  data: ApiResponse;
-  expireTime: number;
-}
-const apiCache: Record<string, CachedData> = {};
-
-const isCacheExpired = (expireTime: number) => {
-  const currentTime = Date.now();
-  return currentTime > expireTime;
-};
-
-export const searchSickness = async (query: string) => {
+export const searchSickness = async (query: string): Promise<ApiResponse | null> => {
   const cacheKey = `searchSickness_${query}`;
 
-  // 캐시된 결과가 있으면 바로 반환
-  if (apiCache[cacheKey] && !isCacheExpired(apiCache[cacheKey].expireTime)) {
+  let response: ApiResponse | null = getCache<ApiResponse>(cacheKey);
+
+  if (!response) {
+    try {
+      const axiosResponse = await axiosBase.get(`?q=${query}`);
+      response = axiosResponse.data;
+
+      console.info('Calling API:', query);
+
+      if (response) {
+        setCache<ApiResponse>(cacheKey, response);
+      }
+    } catch (error) {
+      console.error('API 호출 오류:', error);
+      throw error;
+    }
+  } else {
     console.log('Using cached data for query:', query);
-    return apiCache[cacheKey].data;
   }
 
-  try {
-    const response = await axios.get(`?q=${query}`);
-    const responseData = response.data;
-
-    console.info('Calling API:', query);
-
-    // 데이터를 캐시하고 expire time 설정 (5분 후 만료)
-    apiCache[cacheKey] = {
-      data: responseData,
-      expireTime: Date.now() + 5 * 60 * 1000,
-    };
-
-    return responseData;
-  } catch (error) {
-    console.error('API 호출 오류:', error);
-    throw error;
-  }
+  return response;
 };

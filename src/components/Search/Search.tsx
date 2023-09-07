@@ -1,16 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import SearchInput from '../UI/SearchInput';
-import { searchSickness } from '@/api/axios';
 import SearchButton from '../UI/SearchButton';
 import { SearchResult } from './SearchResult';
 import { useRecentSearches } from '@/hooks/useRecentSearches';
-import { useDebouncedSearch } from '@/hooks/useDebounceSearch';
 import { useSearchRecommendations } from '@/hooks/useSearchRecommendations';
+import { useDebounce } from '@/hooks/useDebounce';
+import { searchSickness } from '@/api/axios';
 
 export const Search = () => {
   const [isFocus, setIsFocus] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
   const { recentSearches, addRecentSearch } = useRecentSearches();
+  const recommendedSearches = useSearchRecommendations(searchTerm);
+  const { debouncedValue: debouncedSearchTerm } = useDebounce(searchTerm, 400);
 
   // 검색 버튼 클릭 시 호출되는 함수
   const handleSearch = (searchTerm: string) => {
@@ -23,8 +26,17 @@ export const Search = () => {
     setSearchTerm(value);
   };
 
-  const { searchTerm, setSearchTerm } = useDebouncedSearch(searchSickness, 400);
-  const recommendedSearches = useSearchRecommendations(searchTerm);
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      searchSickness(debouncedSearchTerm)
+        .then(response => {
+          console.log('API response:', response);
+        })
+        .catch(error => {
+          console.error('Error calling API:', error);
+        });
+    }
+  }, [debouncedSearchTerm]);
 
   return (
     <SearchWrapper>
