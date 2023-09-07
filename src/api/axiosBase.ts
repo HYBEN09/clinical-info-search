@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const API_URL = 'https://preonboardingapiserver.vercel.app/api/data';
+export const API_URL = process.env.REACT_APP_API_URL;
 
 export const axiosBase = axios.create({
   baseURL: API_URL,
