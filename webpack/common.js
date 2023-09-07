@@ -14,7 +14,7 @@ const commonConfig = {
   entry: {
     main: resolve('./src/index.tsx'),
   },
-  plugins: [dotEnvWebpackPlugin(), htmlWebpackPlugin(), copyWebpackPlugin()].filter(Boolean),
+  plugins: [dotEnvWebpackPlugin(), htmlWebpackPlugin()].filter(Boolean),
   module: {
     rules: [
       {
