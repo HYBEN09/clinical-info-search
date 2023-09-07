@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import SearchInput from '../UI/SearchInput';
+import { useEffect, useState } from 'react';
+import { searchSickness } from '@/api/axios';
 import SearchButton from '../UI/SearchButton';
 import { SearchResult } from './SearchResult';
+import { useDebounce } from '@/hooks/useDebounce';
 import { useRecentSearches } from '@/hooks/useRecentSearches';
 import { useSearchRecommendations } from '@/hooks/useSearchRecommendations';
-import { useDebounce } from '@/hooks/useDebounce';
-import { searchSickness } from '@/api/axios';
 
 export const Search = () => {
   const [isFocus, setIsFocus] = useState(false);
@@ -17,7 +17,15 @@ export const Search = () => {
 
   // 검색 버튼 클릭 시 호출되는 함수
   const handleSearch = (searchTerm: string) => {
-    addRecentSearch(searchTerm);
+    if (!searchTerm) {
+      return;
+    }
+
+    // 검색어가 최근 검색어 목록에 없을 때만 추가
+    if (!recentSearches.includes(searchTerm)) {
+      addRecentSearch(searchTerm);
+    }
+
     setIsFocus(false);
   };
 
