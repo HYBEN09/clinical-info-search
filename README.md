@@ -233,7 +233,42 @@ export const useKeyboardNavigation = ({
 
 따라서 사용자는 ArrowUp/ArrowDown 키로 추천 검색어 목록 내에서 움직일 수 있으며, Enter 키로 원하는 검색어를 선택하거나 Escape 키로 선택을 취소할 수 있습니다.
 
+ ```
+export const SearchResult: FC<SearchResultProps> = ({
+// ...
+}) => {
 
+const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
+const [selectedItem, setSelectedItem] = useState<string | null>(null);
+
+useKeyboardNavigation({
+  itemCount: recommendedSearches.length,
+  focusedIndex,
+  setFocusedIndex,
+  setSelectedItem,
+  recommendedSearches,
+});
+
+// ...
+};
+
+ ```
+위의 SearchResult 컴포넌트에서는 useKeyboardNavigation 훅을 사용하여 키보드 이벤트를 처리합니다.  <br/>
+focusedIndex 상태 변수는 현재 포커스된 아이템의 인덱스를 저장하며, selectedItem 상태 변수는 사용자가 Enter 키를 눌러 선택한 아이템을 저장합니다.  <br/>
+이 두 상태 변수는 ArrowUp/ArrowDown/Enter/Esc 키에 대응하는 핸들러 함수 내에서 업데이트됩니다.
+
+### **📍Assignment 5] DB 서버 백엔드 설정**
+이번 과제에서는 간단한 DB/백엔드 프로젝트를 제공하고, 이를 이용하여 API 호출을 통한 response data를 받아와 클라이언트 단에서 처리하는 방식이었습니다. DB 이용에 대해 저희 팀원들은 두 가지 방식을 생각했습니다. <br/>
+
+코드 에디터를 2개 실행하여 각각 FE, BE 파일을 열어 가동한다. <br/>
+FE 프로젝트 내부에 DB json 파일을 저장한 뒤, json-server와 concurrently 라이브러리를 적용하여 FE가 가동되었을 때 간이 BE 서버가 동시에 가동되도록 한다. <br/>
+코드 에디터 하나만으로 FE와 BE 서버를 동시에 실행시킬 수 있다는 장점이 있어, 개발 초기 저희는 2번의 방식을 채택했습니다.
+
+**5.1) 배포 환경에서 json-server가 작동하지 않는 이슈 ** <br/> 
+FE 프로젝트의 로컬 환경에서 json-server는 정상적으로 작동하였으나, 배포 환경에서는 API 호출시 'Network Error'를 반환하는 문제가 발생했습니다. 원인을 찾아본 결과 json-server는 프로덕션 혹은 클라우드 환경에서의 실행을 목적으로 설계되어 FE 프로젝트 내부에서 json-server 라이브러리만으로 배포는 불가능했습니다. <br/> 이에 팀원 한 분이 BE 서버를 호스팅 플랫폼을 통해 배포하여 팀원 전체가 로컬 환경, 배포 환경 모두에서 API 요청을 정상적으로 가능하도록 했습니다.
+
+다양한 호스팅 플랫폼 중 간단한 수준의 BE 서버를 json-server의 기능을 모방한 서버리스 함수를 사용해 배포할 수 있는 'Vercel'을 이용했습니다. <br/>
+[백엔드 서버 배포 과정](https://www.notion.so/React-js-Typescript-Vercel-API-64e56592ecd94169b08fa5f1425e78db)
 
 ## 🐿️ 프로젝트 성능 진단
 ![ally](https://github.com/HYBEN09/clinical-information-search-bar/assets/104710243/9b5b8d91-fa24-4b55-80b4-b48b5a22eeb1)
