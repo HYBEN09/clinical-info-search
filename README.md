@@ -8,42 +8,7 @@
 
 ## 🔗 배포 
 - 배포 링크: http://clinical-information-search-bar.s3-website.ap-northeast-2.amazonaws.com/
-<details>
-<summary> GitHub Actions를 설정하여 AWS로 자동배포</summary>
-  ```
-    name: clinical-information-search-bar
-
-# main에 push 이벤트가 발생하면 트리거가 되어서 workflow 실행 됨
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
-
-jobs:
-  cicd:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Git checkout😉
-        uses: actions/checkout@v3
-      - name: Run "✏️ Remove node_modules and Install node packages"
-        run: npm ci
-      - name: Run "⚒️ Project build"
-        run: npm run build
-      - name: Run "🚀 Deploy to S3"
-        uses: jakejarvis/s3-sync-action@master
-        with:
-          args: --acl public-read --follow-symlinks --delete
-        env:
-          SOURCE_DIR: 'build'
-          AWS_REGION: 'ap-northeast-2'
-          REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
-          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-  ```
-</details>
+- GitHub Actions를 설정하여 AWS로 자동배포
 
 ## 🛠️ 사용한 기술 스택
 
