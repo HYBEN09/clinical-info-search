@@ -11,6 +11,8 @@
 ## 🔗 배포 
 - 배포 링크: http://clinical-information-search-bar.s3-website.ap-northeast-2.amazonaws.com/
 - GitHub Actions를 설정하여 AWS로 자동배포
+  
+<img width="600" alt="image" src="https://github.com/HYBEN09/clinical-information-search-bar/assets/104710243/6dad4802-0ec7-4965-a093-fb048f6a41ea">
 
 ## 🛠️ 사용한 기술 스택
 
