@@ -1,6 +1,6 @@
-import { ApiResponse } from '@/constants/ApiResponse';
 import { axiosBase } from '@/api/axiosBase';
 import { useEffect, useState } from 'react';
+import { ApiResponse } from '@/constants/ApiResponse';
 
 export const useSearchRecommendations = (searchTerm: string) => {
   const [recommendedSearches, setRecommendedSearches] = useState<ApiResponse[]>([]);
@@ -17,7 +17,6 @@ export const useSearchRecommendations = (searchTerm: string) => {
               sickNm: item.sickNm,
             }))
             .slice(0, 7); //  7개 항목만 추출
-          // 추천 검색어를 상태에 업데이트
           setRecommendedSearches(recommendedTerms);
         })
         .catch(error => {

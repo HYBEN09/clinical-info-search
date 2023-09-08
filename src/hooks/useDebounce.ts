@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
 
-type DebouncedFunction = (value: string) => void;
-
 type UseDebounceReturnType = {
   debouncedValue: string;
   setDebouncedValue: React.Dispatch<React.SetStateAction<string>>;

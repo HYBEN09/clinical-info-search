@@ -1,5 +1,5 @@
-import './GlobalStyle.ts';
 import App from './App';
+import './GlobalStyle.ts';
 import ReactDOM from 'react-dom/client';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);

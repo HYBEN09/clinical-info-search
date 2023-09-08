@@ -1,6 +1,6 @@
+import { styled } from 'styled-components';
 import { A11yHidden } from '@/constants/styled';
 import { useNavigation } from '@/hooks/useNavigation';
-import { styled } from 'styled-components';
 
 export const Header = () => {
   const { navigateHome } = useNavigation();

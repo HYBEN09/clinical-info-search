@@ -1,6 +1,6 @@
-import { ApiResponse } from '@/constants/ApiResponse';
-import { getCache, setCache } from '@/utils/cache';
 import { axiosBase } from './axiosBase';
+import { getCache, setCache } from '@/utils/cache';
+import { ApiResponse } from '@/constants/ApiResponse';
 
 export const searchSickness = async (query: string): Promise<ApiResponse | null> => {
   const cacheKey = `searchSickness_${query}`;

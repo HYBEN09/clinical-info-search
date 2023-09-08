@@ -1,15 +1,14 @@
 import {
   NoSearchData,
-  ResultContainer,
   ResultDataContainer,
   ResultDataList,
   SearchResultWrapper,
   StyledResultIcon,
 } from '@/constants/styled';
-import { SearchHistory } from './SearchHistory';
-import { FC, useEffect, useRef, useState } from 'react';
-import { ApiResponse } from '@/constants/ApiResponse';
+import { FC, useState } from 'react';
 import { SearchItem } from './SearchItem';
+import { SearchHistory } from './SearchHistory';
+import { ApiResponse } from '@/constants/ApiResponse';
 import { useKeyboardNavigation } from '@/hooks/useKeyControl';
 
 interface SearchResultProps {

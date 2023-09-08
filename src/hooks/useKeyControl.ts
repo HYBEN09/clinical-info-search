@@ -32,8 +32,7 @@ export const useKeyboardNavigation = ({
   const handleEnter = () => {
     if (focusedIndex !== null) {
       const selectedSickNm = recommendedSearches[focusedIndex].sickNm;
-      setSelectedSickNm(selectedSickNm); // 이 부분에서 검색어를 설정
-      console.log('selected:', selectedSickNm);
+      setSelectedSickNm(selectedSickNm);
     }
   };
 
