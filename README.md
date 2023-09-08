@@ -47,6 +47,7 @@ npm start
 ## 🔥 과제 진행 방법
 
 ## 🐿️ 프로젝트 성능 진단
+![ally](https://github.com/HYBEN09/clinical-information-search-bar/assets/104710243/9b5b8d91-fa24-4b55-80b4-b48b5a22eeb1)
 
 ## 🌲 프로젝트 구조
 
