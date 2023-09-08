@@ -10,7 +10,6 @@ interface UseKeyboardNavigationProps {
 }
 
 export const useKeyboardNavigation = ({
-  itemCount,
   focusedIndex,
   setFocusedIndex,
   setSelectedItem: setSelectedSickNm,
@@ -33,7 +32,8 @@ export const useKeyboardNavigation = ({
   const handleEnter = () => {
     if (focusedIndex !== null) {
       const selectedSickNm = recommendedSearches[focusedIndex].sickNm;
-      setSelectedSickNm(selectedSickNm);
+      setSelectedSickNm(selectedSickNm); // 이 부분에서 검색어를 설정
+      console.log('selected:', selectedSickNm);
     }
   };
 

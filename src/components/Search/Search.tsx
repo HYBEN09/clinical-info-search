@@ -20,13 +20,9 @@ export const Search = () => {
     if (!searchTerm) {
       return;
     }
-
-    // 검색어가 최근 검색어 목록에 없을 때만 추가
     if (!recentSearches.includes(searchTerm)) {
       addRecentSearch(searchTerm);
     }
-
-    setIsFocus(false);
   };
 
   // 입력창의 값이 변경될 때 호출되는 함수

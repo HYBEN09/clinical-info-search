@@ -27,15 +27,20 @@ export const SearchResult: FC<SearchResultProps> = ({
   const hasRecommendedSearches = recommendedSearches.length > 0;
 
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
-  const [selectedSickNm, setSelectedSickNm] = useState<string | null>(null);
+  const [selectedItem, setSelectedItem] = useState<string | null>(null);
 
   useKeyboardNavigation({
     itemCount: recommendedSearches.length,
     focusedIndex,
     setFocusedIndex,
-    setSelectedItem: setSelectedSickNm,
+    setSelectedItem,
     recommendedSearches,
   });
+
+  // 선택된 아이템에 따라 추천 검색어 필터링
+  const filteredRecommendedSearches = selectedItem
+    ? recommendedSearches.filter(search => search.sickNm === selectedItem)
+    : recommendedSearches;
 
   return (
     <SearchResultWrapper>
@@ -48,8 +53,8 @@ export const SearchResult: FC<SearchResultProps> = ({
           </ResultDataContainer>
         )}
         {hasRecommendedSearches ? (
-          recommendedSearches.map((recommendedTerm, index) =>
-            selectedSickNm === null || selectedSickNm === recommendedTerm.sickNm ? (
+          filteredRecommendedSearches.map((recommendedTerm, index) =>
+            selectedItem === null || selectedItem === recommendedTerm.sickNm ? (
               <SearchItem
                 key={index}
                 {...recommendedTerm}

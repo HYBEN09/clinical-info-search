@@ -1,15 +1,21 @@
 import styled from 'styled-components';
-import { FocusEvent, useState } from 'react';
+import { FocusEvent, useEffect, useState } from 'react';
 
 // 검색 입력창 컴포넌트의 프로퍼티 정의
 interface SearchInputProps {
   setIsFocus: (value: boolean) => void;
   onSearch: (searchTerm: string) => void;
   onInputChange: (value: string) => void;
+  selectedTerm?: string | null;
 }
 
-const SearchInput = ({ setIsFocus, onSearch, onInputChange }: SearchInputProps) => {
-  const [searchTerm, setSearchTerm] = useState('');
+const SearchInput = ({ setIsFocus, onSearch, onInputChange, selectedTerm }: SearchInputProps) => {
+  const [searchTerm, setSearchTerm] = useState(selectedTerm || '');
+
+  // searchTerm 상태 업데이트 로직 추가
+  useEffect(() => {
+    setSearchTerm(selectedTerm || '');
+  }, [selectedTerm]);
 
   // 입력창에 포커스가 갔을 때 호출되는 함수
   const handleFocus = (event: FocusEvent<HTMLInputElement>) => {
