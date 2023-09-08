@@ -3,7 +3,7 @@ import { getCache, setCache } from '@/utils/cache';
 import { ApiResponse } from '@/constants/ApiResponse';
 
 export const searchSickness = async (query: string): Promise<ApiResponse | null> => {
-  const cacheKey = `searchSickness_${query}`;
+  const cacheKey = query;
 
   let response: ApiResponse | null = getCache<ApiResponse>(cacheKey);
 
